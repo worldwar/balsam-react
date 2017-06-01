@@ -1,5 +1,6 @@
 import React from 'react';
 import Book from './Book.jsx'
+import AddButton from './AddButton.jsx'
 import axios from 'axios'
 import util from 'util'
 
@@ -30,12 +31,16 @@ export default class Books extends React.Component {
     render() {
         if (this.state.books.length > 0) {
             return <div>
+                <AddButton />
                 {this.state.books.map((book, i) =>
                     <Book key={i} book={book}/>
                 )}
             </div>
         } else {
-            return <div>没有记录</div>
+            return <div>
+                <AddButton />
+                <div>没有记录</div>
+            </div>
         }
 
     }
