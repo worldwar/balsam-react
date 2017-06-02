@@ -17,7 +17,7 @@ export default class Add extends React.Component {
 
     onSubmit(event) {
         event.preventDefault();
-        axios.post('http://localhost:9000/add', {url: this.state.url})
+        axios.post('http://localhost:9000/add', {url: this.state.url, source: "qidian", bookId: ""})
             .then(res => {
                 const status = res.data.status;
                 const desc = res.data.desc;
