@@ -1,8 +1,8 @@
 import React from 'react';
-import Volume from './Volume.jsx'
-import axios from 'axios'
+import Volume from './Volume.jsx';
+import axios from 'axios';
 import { Row, Col , Pagination ,Button, BackTop} from 'antd';
-
+import Config from 'Config';
 export default class Catalog extends React.Component {
     constructor(props) {
         super(props);

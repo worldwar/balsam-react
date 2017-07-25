@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios'
-
+import Config from 'Config'
 export default class Content extends React.Component {
     constructor(props) {
         super(props);
@@ -11,7 +11,7 @@ export default class Content extends React.Component {
     componentDidMount() {
         const contentId = this.props.match.params.chapterId;
         if (contentId) {
-            axios.get('http://45.33.110.10:9000/content/' + contentId)
+            axios.get(Config.serverUrl + '/content/' + contentId)
                 .then(res => {
                     const chapter = res.data.chapter;
                     const content = res.data.paragraph.content;

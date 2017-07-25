@@ -8,6 +8,7 @@ const src = path.resolve(process.cwd(), '.');
 const app2 = path.resolve(src, 'app');
 const nodeModules = path.resolve(process.cwd(), 'node_modules');
 process.env.BABEL_ENV = TARGET;
+var production = (process.env.NODE_ENV === 'production');
 
 const PATHS = {
     app: path.join(__dirname, 'app'),
@@ -86,5 +87,15 @@ if (TARGET === 'start' || !TARGET) {
 }
 
 if (TARGET === 'build') {
-    module.exports = merge(common, {});
+    //module.exports = merge(common, {});
+    module.exports = merge(common, {
+     externals: {
+        'Config': JSON.stringify(production ? require('./config.prod.json') : require('./config.dev.json'))
+    },
+     plugins: [new webpack.optimize.UglifyJsPlugin({
+        compress: {
+            warnings: false
+        }
+    })]
+});
 }

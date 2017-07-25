@@ -1,5 +1,6 @@
 import React from 'react';
-import axios from 'axios'
+import axios from 'axios';
+import Config from 'Config';
 
 export default class Add extends React.Component {
     constructor(props) {
@@ -17,7 +18,7 @@ export default class Add extends React.Component {
 
     onSubmit(event) {
         event.preventDefault();
-        axios.post('http://45.33.110.10:9000/add', {url: this.state.url, source: "qidian", bookId: ""})
+        axios.post(Config.serverUrl + '/add', {url: this.state.url, source: "qidian", bookId: ""})
             .then(res => {
                 const status = res.data.status;
                 const desc = res.data.desc;

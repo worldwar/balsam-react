@@ -5,7 +5,7 @@ import axios from 'axios'
 import util from 'util'
 import { Link } from 'react-router-dom'
 import {Button} from 'antd'
-
+import Config from 'Config'
 export default class Page extends React.Component {
     constructor(props) {
         super(props);

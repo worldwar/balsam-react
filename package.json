@@ -46,6 +46,7 @@
     "marked": "^0.3.6",
     "request": "^2.81.0",
     "npm-install-webpack-plugin": "github:webpack-contrib/npm-install-webpack-plugin",
+    "object-assign": "^4.1.1",
     "style-loader": "^0.18.1",
     "webpack": "^2.6.0",
     "webpack-dev-server": "^2.4.5",
