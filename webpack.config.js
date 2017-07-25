@@ -4,6 +4,9 @@ const webpack = require('webpack');
 const NpmInstallPlugin = require('npm-install-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const TARGET = process.env.npm_lifecycle_event;
+const src = path.resolve(process.cwd(), '.');
+const app2 = path.resolve(src, 'app');
+const nodeModules = path.resolve(process.cwd(), 'node_modules');
 process.env.BABEL_ENV = TARGET;
 
 const PATHS = {
@@ -13,27 +16,44 @@ const PATHS = {
 
 const common = {
     entry: {
-        app: PATHS.app
+        app: ['babel-polyfill',path.resolve(PATHS.app, 'index.js')]
     },
     resolve: {
-        extensions: ['.js', '.jxs']
+        modules: [
+          app2,
+          nodeModules,
+        ],
+        extensions: ['.js', '.jsx', '.ts', '.tsx', '.json', '.css', '.less'],
     },
     output: {
         path: PATHS.build,
         filename: 'bundle.js'
     },
     module: {
-        rules: [
-            {
-                test: /\.css$/,
-                loaders: ['style-loader', 'css-loader'],
-                include: PATHS.app
-            },
-            {
-                test: /\.jsx?$/,
-                loaders: ['babel-loader?cacheDirectory']
-            }
-        ]
+        rules: [{
+          test: /\.jsx?$/,
+          loader: 'babel-loader',
+          exclude: [nodeModules]
+        }, {
+          test: /\.tsx?$/,
+          use: ['babel-loader', 'ts-loader'],
+          exclude: [nodeModules]
+        }, {
+          test: /\.(jpe?g|png|gif|svg|ico)/i,
+          loader: 'file-loader?name=img/img_[hash:8].[ext]'
+        }, {
+          test: /\.(ttf|eot|svg|woff|woff2)/,
+          loader: 'file-loader'
+        }, {
+          test: /\.(pdf)/,
+          loader: 'file-loader'
+        }, {
+          test: /\.css$/,
+          use: ['style-loader', 'css-loader']
+        },{
+          test: /\.less$/,
+          use: ['style-loader', 'css-loader', 'less-loader']
+        }],
     }
 };
 
@@ -57,7 +77,10 @@ if (TARGET === 'start' || !TARGET) {
             }),
             new CopyWebpackPlugin([
                 {from: 'index.html'}
-            ])
+            ]),
+            new webpack.ProvidePlugin({
+              $q: path.join(__dirname, 'app/components/global.js')
+            })
         ]
     });
 }
