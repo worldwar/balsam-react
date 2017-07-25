@@ -142,7 +142,3 @@ export const getPath = (path, queryStr, dateStr) => {
   }
   return path;
 };
-
-export const formatDate = (date) => {
-  return date.substring(0,4) + '-' + date.substring(4,6);
-}
