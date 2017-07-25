@@ -19,7 +19,7 @@ export default class Base extends Component {
              <div style={{ background: '#fff', padding: 24, minHeight: 380 }}>{children}</div>
           </Content >
           <Footer style={{ textAlign: 'center' }}>
-            Ant Design ©2016 Created by Ant UED
+            Zhu Design ©2016 Created by Ran Zhu
           </Footer>
         </Layout>
 
