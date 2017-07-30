@@ -61,6 +61,9 @@ const common = {
 if (TARGET === 'start' || !TARGET) {
     module.exports = merge(common, {
         context: path.join(__dirname, 'app'),
+        externals: {
+            'Config': JSON.stringify(production ? require('./config.prod.json') : require('./config.dev.json'))
+        },
         devtool: 'eval-source-map',
         devServer: {
             contentBase: PATHS.build,
