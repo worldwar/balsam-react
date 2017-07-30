@@ -1,5 +1,6 @@
-export const url = 'http://45.33.110.10:9000';
 import { message } from 'antd';
+import Config from 'Config';
+export const url = Config.serverUrl;
 const iferror = (error, xhr) => {
   if (error) {
     error(xhr);

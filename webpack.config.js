@@ -89,13 +89,19 @@ if (TARGET === 'start' || !TARGET) {
 if (TARGET === 'build') {
     //module.exports = merge(common, {});
     module.exports = merge(common, {
-     externals: {
+    externals: {
         'Config': JSON.stringify(production ? require('./config.prod.json') : require('./config.dev.json'))
     },
-     plugins: [new webpack.optimize.UglifyJsPlugin({
+    plugins: [new webpack.optimize.UglifyJsPlugin({
         compress: {
             warnings: false
         }
-    })]
+    }),
+
+    new CopyWebpackPlugin([{from: 'app/index.html'}]),
+    new webpack.ProvidePlugin({
+        $q: path.join(__dirname, 'app/components/global.js')
+    })
+]
 });
 }
